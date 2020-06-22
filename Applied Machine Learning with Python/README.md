@@ -1,3 +1,5 @@
+# LEARNINGS FROM APPLIED MACHINE LEARNING WITH PYTHON
+
 ## WEEK 1: FUNDAMENTAL OF MACHINE LEARNING - Intro to Scikit Learn
 
 ### count values for different labels
