@@ -95,6 +95,19 @@ linridge = Ridge(alpha=20.0).fit(X_train_scaled, y_train)
 ### Lasso Regression
 It is similar to ridge regression, just uses a different L1 penalty instead of L2 penalty. It applies the penalty as sum of the absolute values of the w coefficients instead of sum of squared values of the w coefficients. This results in making a subset of feature coefficients forcibly equal to zero, and mostly the most important features are left with the non-zero weights.<br>
 The lasso regression results do help us see some of the strongest relationships between the input variables & outcomes for a particular data.
+```python
+from sklearn.linear_model import Lasso
+from sklearn.preprocessing import MinMaxScaler
+scaler = MinMaxScaler()
+
+X_train, X_test, y_train, y_test = train_test_split(X_crime, y_crime, random_state = 0)
+
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+linlasso = Lasso(alpha=2.0, max_iter = 10000).fit(X_train_scaled, y_train)
+```
+- `max_iter` param is to avoid warning which may occur for some datasets, to avoid those set it 20,000 or further
 
 ### Polynomial Regression
 - It is similar to linear regression, just that it adds polynomial features to the input features which are basically all possible combinations between the features.
