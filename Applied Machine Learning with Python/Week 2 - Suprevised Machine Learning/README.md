@@ -126,3 +126,42 @@ X_train, X_test, y_train, y_test = train_test_split(X_poly, y, random_state = 0)
 - `degree` param specifies degree for the polynomial features, default is 2
 - `n_input_features_` attribute gives the number of input features given
 - `n_output_features_` attribute gives the total number of output features after applying polynomial regression
+
+### Logistic Regression
+Everything same as linear regression but with a difference in the function to compute weights & the bias term i.e. it uses a special non-linear logistic function(1 / (1 + exp<sup>-(b + wX)</sup>)) instead of a straight line. In logistic regression the regularisation is controlled by parameter `C` instead of `alpha` which is generally used for regularisation.
+```python
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+
+X_train, X_test, y_train, y_test = train_test_split(X_cancer, y_cancer, random_state = 0)
+clf = LogisticRegression(C = 10).fit(X_train, y_train)
+```
+- `C` param is used to control the amount of regularisation to be applied, larger value of `C` defines less regularisation, its default value is 1
+
+### Kernelized SVM or SVM(Support Vector Machine)
+There are problems where a linear model having line or hyperplane cannot classify the data well. For these types of problems the use of **Kernelized SVM** comes into the picture which is **powerful extension of linear support vector machines**.
+- As like other supervised learning methods SVM can be used for both classification & regression.
+- What Kernelized SVM do is that it takes the original data space & transform it into a new higher dimensional feature space where it becomes much easier to classify the transformed data using linear classifier.
+- There are various kernels available for the Kernelized SVM which corresponds to different transformations. For eg, Radial Basis Function Kernel(RBF), Polynomial Kernel, etc.
+- The kernel function in SVM tells us, given two points in the original input space, what is their similarity in the new feature space.
+- For the RBF kernel function the similarity between two points and the transformed feature space is an exponentially decaying function of distance between the vectors and the original input space as shown by the formula here.(K(x, x<sup>'</sup>) = e<sup>-(gamma * (x - x<sup>'</sup>)<sup>2</sup>)</sup>)
+- `gamma` controls how far the influence of a single trending example reaches, which in turn effects how tightly the decision boundaries end up surrounding points in the input space.
+  * Small `gamma` means a large similarity radius, so the points farther apart are considered similar which results in more points being grouped together & smoother decision boundaries.
+  * For larger `gamma` the kernel value decays more quickly and points have to be very close to be considered similar which results in more complex, tightly constrained decision boundaries.
+- SVM also has a regularisation parameter `C`, that controls the trade off between satisfying the maximum margin criterion to find the simple decision boundary, and avoiding misclassification errors on the training set.
+  * Smaller `C` or by reducing `C` will get you more smoother decision boundaries.
+  * Larger `C` or by increasing `C` will get you more tightly constrained boundaries.
+- Typically `C` & `gamma` interacts with each other & hence tuned together.
+  * If `gamma` is large, `C` will have middle to low effect.
+  * If `gamma` is small, the model is much more constrained and the effect of `C` would be similar to how it would affect a linear classifier.
+- Parameters to decide model complexity for Kernelized SVM:
+  ```python
+  from sklearn.svm import SVC
+  from sklearn.model_selection import train_test_split
+
+  X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 0)
+  clf = SVC(kernel = 'rbf', gamma=5.0).fit(X_train, y_train)
+  ```
+  * `kernel` param is used to decide the type of kernel function to be used, the advantage with this param is that it allows to set different types of kernels including customized functions. Default is RBF function.
+  * `gamma` param decides the kernel width, and is a very sensitive param for SVM.
+  * `C` is the regularisation parameter which is tuned with `gamma` for optimized performance.
