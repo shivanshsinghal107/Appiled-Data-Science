@@ -140,132 +140,132 @@ There are problems where a linear model having line or hyperplane cannot classif
 
 ## Scikit Learn
 - ***train_test_split()***
-```python
-from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
-```
-- What `train_test_split()` does is that it splits the data into training & testing datasets with default ratio of 3:1
-- There are args named `train_size` & `test_size` to specifically specify them if you want
-- The first two args are features and labels of the data respectively
-- Then there is an argument `random_state` which is as obvious by name a random number, what it does is that it controls the shuffling of data before applying the split i.e. **you can always get the same result by keeping the value unchanged for** `random_state`
+  ```python
+  from sklearn.model_selection import train_test_split
+  X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
+  ```
+  * What `train_test_split()` does is that it splits the data into training & testing datasets with default ratio of 3:1
+  * There are args named `train_size` & `test_size` to specifically specify them if you want
+  * The first two args are features and labels of the data respectively
+  * Then there is an argument `random_state` which is as obvious by name a random number, what it does is that it controls the shuffling of data before applying the split i.e. **you can always get the same result by keeping the value unchanged for** `random_state`
 
-(Here the conventional notation is used i.e. X(capital x) is used to represent features of the data & y(small y) is used to represent labels of the data)
+  (Here the conventional notation is used i.e. X(capital x) is used to represent features of the data & y(small y) is used to represent labels of the data)
 
 - ***KNeighborsClassifier()***
-```python
-# create classifier object
-from sklearn.neighbors import KNeighborsClassifier
-knn = KNeighborsClassifier(*args)
-```
-`KNeighborsClassifier()` comes in very handy when it comes to applying k nearest neighbor algorithm, it can be used for both regression & classification.<br>
-`n_neighbors` specifies number of neighbors used by kNN classifier to predict a result i.e. when kNN takes input for predicting it calculates the distance(euclidean distance is default in scikit learn) of that input data point with its k(i.e. n_neighbors) nearest data points & then on basis of `algorithm` arg(which is taking majority by default) between those points it gives the prediction.
-```python
-# train the classifier(fit the estimator) using training data
-knn.fit(X_train, y_train)
-# estimate accuracy on the future data using the test data
-knn.score(X_test, y_test)
-# use the trained k-NN classifier model to classify new, previously unseen objects
-# example: a small fruit with mass 20g, width 4.3 cm, height 5.5 cm
-fruit_prediction = knn.predict([[20, 4.3, 5.5]])
-lookup_fruit_name[fruit_prediction[0]]
-```
+  ```python
+  # create classifier object
+  from sklearn.neighbors import KNeighborsClassifier
+  knn = KNeighborsClassifier(*args)
+  ```
+  * `KNeighborsClassifier()` comes in very handy when it comes to applying k nearest neighbor algorithm, it can be used for both regression & classification.<br>
+  * `n_neighbors` specifies number of neighbors used by kNN classifier to predict a result i.e. when kNN takes input for predicting it calculates the distance(euclidean distance is default in scikit learn) of that input data point with its k(i.e. n_neighbors) nearest data points & then on basis of `algorithm` arg(which is taking majority by default) between those points it gives the prediction.
+  ```python
+  # train the classifier(fit the estimator) using training data
+  knn.fit(X_train, y_train)
+  # estimate accuracy on the future data using the test data
+  knn.score(X_test, y_test)
+  # use the trained k-NN classifier model to classify new, previously unseen objects
+  # example: a small fruit with mass 20g, width 4.3 cm, height 5.5 cm
+  fruit_prediction = knn.predict([[20, 4.3, 5.5]])
+  lookup_fruit_name[fruit_prediction[0]]
+  ```
 
 - ***LinearRegression()***
-```python
-from sklearn.linear_model import LinearRegression
+  ```python
+  from sklearn.linear_model import LinearRegression
 
-X_train, X_test, y_train, y_test = train_test_split(X_R1, y_R1, random_state = 0)
-linreg = LinearRegression().fit(X_train, y_train)
+  X_train, X_test, y_train, y_test = train_test_split(X_R1, y_R1, random_state = 0)
+  linreg = LinearRegression().fit(X_train, y_train)
 
-print('linear model coeff (w): {}'
-     .format(linreg.coef_))
-print('linear model intercept (b): {:.3f}'
-     .format(linreg.intercept_))
-print('R-squared score (test): {:.3f}'
-     .format(linreg.score(X_test, y_test)))
-```
-- `coef_` attribute stores the feature weights w of the linear model and is called coefficients of the model.
-- `intercept_` attribute stores the bias term b of the model<br>
-(If a scikit learn object attribute ends with an underscore, this means that the attribute were derived from training data and were quantities set by user)<br>
-- `fit_intercept` param is a boolean to determine whether to calculate the intercept of the model which is True by default
-- `normalize` param is also a boolean to, which is False by default & if True, the features `X` will be normailzed before regression by subtracting mean and dividing by L2-norm(The L2 norm calculates the distance of the vector coordinate from the origin of the vector space, it is also called euclidean norm as the distance is same as euclidean distance).<br>
-(If you wish to normalize, use `sklearn.preprocessing.StandardScaler` before applying `fit` on an estimator with `normalize = False`)
-- `n_jobs` param is to specify the number of processors to be used for calculation, **it will only provide speedup if number of labels/targets > 1 & sufficient large data.** -1 means using all processors.
+  print('linear model coeff (w): {}'
+       .format(linreg.coef_))
+  print('linear model intercept (b): {:.3f}'
+       .format(linreg.intercept_))
+  print('R-squared score (test): {:.3f}'
+       .format(linreg.score(X_test, y_test)))
+  ```
+  * `coef_` attribute stores the feature weights w of the linear model and is called coefficients of the model.
+  * `intercept_` attribute stores the bias term b of the model<br>
+  (If a scikit learn object attribute ends with an underscore, this means that the attribute were derived from training data and were quantities set by user)<br>
+  * `fit_intercept` param is a boolean to determine whether to calculate the intercept of the model which is True by default
+  * `normalize` param is also a boolean to, which is False by default & if True, the features `X` will be normailzed before regression by subtracting mean and dividing by L2-norm(The L2 norm calculates the distance of the vector coordinate from the origin of the vector space, it is also called euclidean norm as the distance is same as euclidean distance).<br>
+  (If you wish to normalize, use `sklearn.preprocessing.StandardScaler` before applying `fit` on an estimator with `normalize = False`)
+  * `n_jobs` param is to specify the number of processors to be used for calculation, **it will only provide speedup if number of labels/targets > 1 & sufficient large data.** -1 means using all processors.
 
 - ***Ridge()***
-```python
-from sklearn.linear_model import Ridge
-X_train, X_test, y_train, y_test = train_test_split(X_crime, y_crime, random_state = 0)
-linridge = Ridge(alpha=20.0).fit(X_train, y_train)
-```
-- `alpha` param decides the strength of regularisation to be applied
-- `fit_intercept` and `normalize` params same as in linear regression
-- `coef_` and `intercept_` attributes same as in linear regression
+  ```python
+  from sklearn.linear_model import Ridge
+  X_train, X_test, y_train, y_test = train_test_split(X_crime, y_crime, random_state = 0)
+  linridge = Ridge(alpha=20.0).fit(X_train, y_train)
+  ```
+  * `alpha` param decides the strength of regularisation to be applied
+  * `fit_intercept` and `normalize` params same as in linear regression
+  * `coef_` and `intercept_` attributes same as in linear regression
 
 - ***MinMaxScaler()***
-```python
-from sklearn.preprocessing import MinMaxScaler
-scaler = MinMaxScaler()
+  ```python
+  from sklearn.preprocessing import MinMaxScaler
+  scaler = MinMaxScaler()
 
-from sklearn.linear_model import Ridge
-X_train, X_test, y_train, y_test = train_test_split(X_crime, y_crime, random_state = 0)
+  from sklearn.linear_model import Ridge
+  X_train, X_test, y_train, y_test = train_test_split(X_crime, y_crime, random_state = 0)
 
-# fit and transform in single step by fit_transform() method
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+  # fit and transform in single step by fit_transform() method
+  X_train_scaled = scaler.fit_transform(X_train)
+  X_test_scaled = scaler.transform(X_test)
 
-linridge = Ridge(alpha=20.0).fit(X_train_scaled, y_train)
-```
-- `feature_range` param decides the min-max interval for the transformed data, default is (0,1)
+  linridge = Ridge(alpha=20.0).fit(X_train_scaled, y_train)
+  ```
+  * `feature_range` param decides the min-max interval for the transformed data, default is (0,1)
 
 - ***Lasso()***
-```python
-from sklearn.linear_model import Lasso
-from sklearn.preprocessing import MinMaxScaler
-scaler = MinMaxScaler()
+  ```python
+  from sklearn.linear_model import Lasso
+  from sklearn.preprocessing import MinMaxScaler
+  scaler = MinMaxScaler()
 
-X_train, X_test, y_train, y_test = train_test_split(X_crime, y_crime, random_state = 0)
+  X_train, X_test, y_train, y_test = train_test_split(X_crime, y_crime, random_state = 0)
 
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+  X_train_scaled = scaler.fit_transform(X_train)
+  X_test_scaled = scaler.transform(X_test)
 
-linlasso = Lasso(alpha=2.0, max_iter = 10000).fit(X_train_scaled, y_train)
-```
-- `max_iter` param is to avoid warning which may occur for some datasets, to avoid those set it 20,000 or further
+  linlasso = Lasso(alpha=2.0, max_iter = 10000).fit(X_train_scaled, y_train)
+  ```
+  * `max_iter` param is to avoid warning which may occur for some datasets, to avoid those set it 20,000 or further
 
 - ***PolynomialFeatures()***
-```python
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.linear_model import ridge
+  ```python
+  from sklearn.model_selection import train_test_split
+  from sklearn.preprocessing import PolynomialFeatures
+  from sklearn.linear_model import ridge
 
-poly = PolynomialFeatures(degree = 2)
-X_poly = poly.fit_transform(X)
+  poly = PolynomialFeatures(degree = 2)
+  X_poly = poly.fit_transform(X)
 
-X_train, X_test, y_train, y_test = train_test_split(X_poly, y, random_state = 0)
-```
-- `degree` param specifies degree for the polynomial features, default is 2
-- `n_input_features_` attribute gives the number of input features given
-- `n_output_features_` attribute gives the total number of output features after applying polynomial regression
+  X_train, X_test, y_train, y_test = train_test_split(X_poly, y, random_state = 0)
+  ```
+  * `degree` param specifies degree for the polynomial features, default is 2
+  * `n_input_features_` attribute gives the number of input features given
+  * `n_output_features_` attribute gives the total number of output features after applying polynomial regression
 
 - ***LogisticRegression()***
-```python
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
+  ```python
+  from sklearn.model_selection import train_test_split
+  from sklearn.linear_model import LogisticRegression
 
-X_train, X_test, y_train, y_test = train_test_split(X_cancer, y_cancer, random_state = 0)
-clf = LogisticRegression(C = 10).fit(X_train, y_train)
-```
-- `C` param is used to control the amount of regularisation to be applied, larger value of `C` defines less regularisation, its default value is 1
+  X_train, X_test, y_train, y_test = train_test_split(X_cancer, y_cancer, random_state = 0)
+  clf = LogisticRegression(C = 10).fit(X_train, y_train)
+  ```
+  * `C` param is used to control the amount of regularisation to be applied, larger value of `C` defines less regularisation, its default value is 1
 
 - ***SVC()***
-```python
-from sklearn.svm import SVC
-from sklearn.model_selection import train_test_split
+  ```python
+  from sklearn.svm import SVC
+  from sklearn.model_selection import train_test_split
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 0)
-clf = SVC(kernel = 'rbf', gamma=5.0).fit(X_train, y_train)
-```
-* `kernel` param is used to decide the type of kernel function to be used, the advantage with this param is that it allows to set different types of kernels including customized functions. Default is RBF function.
-* `gamma` param decides the kernel width, and is a very sensitive param for SVM.
-* `C` is the regularisation parameter which is tuned with `gamma` for optimized performance.
+  X_train, X_test, y_train, y_test = train_test_split(X, y, random_state = 0)
+  clf = SVC(kernel = 'rbf', gamma=5.0).fit(X_train, y_train)
+  ```
+  * `kernel` param is used to decide the type of kernel function to be used, the advantage with this param is that it allows to set different types of kernels including customized functions. Default is RBF function.
+  * `gamma` param decides the kernel width, and is a very sensitive param for SVM.
+  * `C` is the regularisation parameter which is tuned with `gamma` for optimized performance.
