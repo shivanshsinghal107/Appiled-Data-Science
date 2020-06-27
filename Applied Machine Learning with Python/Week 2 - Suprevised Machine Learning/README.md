@@ -138,6 +138,10 @@ clf = LogisticRegression(C = 10).fit(X_train, y_train)
 ```
 - `C` param is used to control the amount of regularisation to be applied, larger value of `C` defines less regularisation, its default value is 1
 
+### Linear Models & Linear Support Vector Machine(LSVM)
+
+<img src = "linear models & lsvm.PNG" width = "600" height = "300">
+
 ### Kernelized SVM or SVM(Support Vector Machine)
 There are problems where a linear model having line or hyperplane cannot classify the data well. For these types of problems the use of **Kernelized SVM** comes into the picture which is **powerful extension of linear support vector machines**.
 - As like other supervised learning methods SVM can be used for both classification & regression.
@@ -165,3 +169,9 @@ There are problems where a linear model having line or hyperplane cannot classif
   * `kernel` param is used to decide the type of kernel function to be used, the advantage with this param is that it allows to set different types of kernels including customized functions. Default is RBF function.
   * `gamma` param decides the kernel width, and is a very sensitive param for SVM.
   * `C` is the regularisation parameter which is tuned with `gamma` for optimized performance.
+  
+  <img src = "kernelized svm or svm.PNG" width = "600" height = "300">
+  
+  ### Decision Trees
+  
+  <img src = "decision trees.PNG" width = "600" height = "300">
